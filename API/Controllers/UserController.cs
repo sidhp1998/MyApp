@@ -2,18 +2,20 @@
 using API.Entities;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+
 namespace API.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class UserController : Controller
+    
+    public class UserController : BaseApiController
     {
+
         public readonly DataContext _dataContext;
         public UserController(DataContext dataContext)
         {
             _dataContext = dataContext;
         }
-
+        [Authorize]
         [HttpGet("{id:int}")]
         public async Task<ActionResult<AppUser>> GetUsers(int id)
         {
